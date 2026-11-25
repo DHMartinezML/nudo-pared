@@ -1,0 +1,307 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Nudo · Cuadros con planta viva hechos a mano en Madrid</title>
+<meta name="description" content="Cuadros de madera quemada de los que brota una planta real. Sin tierra ni macetas. Hechos a mano en Madrid.">
+<link rel="stylesheet" href="styles.css">
+<script>document.documentElement.classList.add('js')</script>
+<script src="especies.js" defer></script>
+<script src="tallo.js" defer></script>
+<script src="mapa.js" defer></script>
+<script src="medios.js" defer></script>
+<script src="pie.js" defer></script>
+</head>
+<body>
+<a class="saltar" href="#contenido">Saltar al contenido</a>
+
+<header class="cabecera">
+  <a class="marca" href="#inicio" aria-label="Nudo, inicio">nudo</a>
+  <nav aria-label="Principal">
+    <ul>
+      <li><a href="#cuidados">Cuidados</a></li>
+      <li><a href="#plantas">Plantas</a></li>
+      <li><a href="#preguntas">Preguntas</a></li>
+      <li><a class="nav-tienda" href="https://www.etsy.com/shop/NudoArtesania" rel="noopener">Tienda<span class="vh"> (Etsy, abre otra web)</span></a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- El tallo: lo dibuja tallo.js a partir de los nudos (.nudo) de la página. -->
+<svg class="tallo" aria-hidden="true" focusable="false"><g class="tallo__ramas"></g><g class="tallo__hojas"></g></svg>
+
+<main id="contenido">
+
+  <section class="portada" id="inicio" aria-labelledby="titulo">
+    <video class="portada__sombra" autoplay muted loop playsinline preload="auto" poster="media/sombra-hojas.jpg" aria-hidden="true" tabindex="-1">
+      <source src="media/sombra-hojas.webm" type="video/webm">
+      <source src="media/sombra-hojas.mp4" type="video/mp4">
+    </video>
+    <div class="portada__texto">
+      <h1 id="titulo">Arte que <em>respira.</em></h1>
+      <p class="bajada">Cuadros que echan raíces: una planta real brota de tu pared, sin tierra ni macetas.</p>
+      <div class="acciones">
+        <a class="boton" href="https://www.etsy.com/shop/NudoArtesania" rel="noopener">Ver los cuadros en Etsy
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M6 3h7v7"/></svg></a>
+        <a class="enlace" href="#cuidados">¿Ya tienes el tuyo? <span>Guía de cuidados</span></a>
+      </div>
+    </div>
+
+    <figure class="pieza">
+      <svg class="pieza__madera" viewBox="0 0 300 400" role="img" aria-labelledby="pieza-alt">
+        <title id="pieza-alt">Recreación de un cuadro de madera quemada colgado en la pared, del que brota un esqueje de poto.</title>
+        <defs>
+          <linearGradient id="barniz" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+            <stop offset=".42" stop-color="#fff" stop-opacity=".09"/>
+            <stop offset=".55" stop-color="#fff" stop-opacity="0"/>
+          </linearGradient>
+          <clipPath id="tabla"><rect width="300" height="400" rx="3"/></clipPath>
+        </defs>
+        <g clip-path="url(#tabla)">
+          <rect width="300" height="400" fill="oklch(0.24 0.025 52)"/>
+          <image href="media/madera-quemada.jpg" width="300" height="400" preserveAspectRatio="xMidYMid slice"/>
+          <rect width="300" height="400" fill="oklch(0.16 0.02 50)" opacity=".3"/>
+          <rect width="300" height="400" fill="url(#barniz)"/>
+        </g>
+        <!-- el orificio del frontal y el esqueje que asoma -->
+        <circle cx="204" cy="262" r="9" fill="oklch(0.11 0.015 45)"/>
+        <circle cx="204" cy="262" r="9" fill="none" stroke="oklch(0.42 0.04 55)" stroke-width="1.5"/>
+        <image class="pieza__brote" href="media/plantas/brote.webp" x="122.4" y="182.6" width="170" height="101.2"/>
+      </svg>
+      <figcaption>Pino quemado y barnizado, con esqueje de poto. <span>Recreación · aquí irá la foto o el timelapse</span></figcaption>
+    </figure>
+  </section>
+
+  <!-- ─── Qué es ─── -->
+  <section class="tramo" id="que-es" data-planta="poto" aria-labelledby="t-que-es">
+    <div class="nudo nudo--titulo" data-lado="izq" data-tallo="10" style="--desde:2;--hasta:9">
+      <h2 id="t-que-es">Un cuadro que crece contigo</h2>
+    </div>
+    <article class="nudo" data-lado="izq" data-tallo="10" style="--desde:5;--hasta:9">
+      <h3>Una planta real</h3>
+      <p>Un esqueje vivo brota de la madera y cambia semana a semana. No hay dos cuadros iguales.</p>
+    </article>
+    <figure class="medio" style="--desde:11;--hasta:13;--fila:2 / span 2">
+      <video autoplay muted loop playsinline preload="metadata" poster="media/hoja-madera.jpg" aria-hidden="true" tabindex="-1">
+        <source src="media/hoja-madera.webm" type="video/webm">
+        <source src="media/hoja-madera.mp4" type="video/mp4">
+      </video>
+      <figcaption>Imagen ilustrativa</figcaption>
+    </figure>
+    <figure class="foto-pendiente" style="--desde:11;--hasta:13;--fila:4 / span 2">
+      <div class="foto-pendiente__marco"><span>Foto pendiente</span>El cuadro colgado en una pared, con luz de ventana</div>
+    </figure>
+    <article class="nudo" data-lado="izq" data-tallo="10" style="--desde:5;--hasta:9">
+      <h3>Sin tierra ni macetas</h3>
+      <p>La planta crece en agua, oculta detrás del cuadro. Nada de manchas ni sustrato.</p>
+    </article>
+    <article class="nudo" data-lado="izq" data-tallo="10" style="--desde:5;--hasta:9">
+      <h3>Se cuelga como un cuadro</h3>
+      <p>Pegado a la pared, sin soportes a la vista. Rellenar el agua lleva un par de minutos cada dos o tres semanas.</p>
+    </article>
+  </section>
+
+  <!-- ─── Cuidados ─── -->
+  <section class="tramo tramo--cambio" id="cuidados" data-planta="filodendro" aria-labelledby="t-cuidados">
+    <div class="nudo nudo--titulo" data-lado="der" data-tallo="4" style="--desde:4;--hasta:12">
+      <h2 id="t-cuidados">Guía de cuidados</h2>
+      <p class="entrada">Todo lo que necesitas para colgar tu cuadro y mantener la planta sana. Si has llegado desde el código de la caja, empieza por aquí.</p>
+    </div>
+
+    <ol class="pasos" aria-label="Montaje, en cinco pasos">
+      <li class="nudo" data-lado="der" data-tallo="4" style="--desde:4;--hasta:9">
+        <h3><span class="num">1</span>Elige la pared</h3>
+        <p>Una pared interior con buena luz, sin sol directo y lejos de radiadores. Entre 16 y 28&nbsp;°C.</p>
+      </li>
+      <li class="nudo" data-lado="der" data-tallo="4" style="--desde:4;--hasta:9">
+        <h3><span class="num">2</span>Coloca el listón</h3>
+        <p>Atornilla a la pared el listón incluido, con los tacos y tornillos de la caja. Usa un nivel para que quede recto.</p>
+      </li>
+      <li class="nudo" data-lado="der" data-tallo="4" style="--desde:4;--hasta:9">
+        <h3><span class="num">3</span>Llena de agua</h3>
+        <p>Con el cuadro de pie sobre una mesa, llénalo despacio con <strong>50&nbsp;ml de agua como máximo</strong>. Usa agua que haya reposado 24&nbsp;horas, filtrada o de lluvia.</p>
+      </li>
+      <li class="nudo" data-lado="der" data-tallo="4" style="--desde:4;--hasta:9">
+        <h3><span class="num">4</span>Coloca el esqueje</h3>
+        <p>Usa un tallo de unos 15&nbsp;cm con dos o tres <em>nudos</em> en su parte final, sin hojas en ese tramo. Introdúcelo por el orificio del frontal con suavidad, sin forzarlo. Las primeras raíces salen en dos a cuatro semanas.</p>
+      </li>
+      <li class="nudo" data-lado="der" data-tallo="4" style="--desde:4;--hasta:9">
+        <h3><span class="num">5</span>Cuelga el cuadro</h3>
+        <p>Llévalo derecho hasta la pared y cuélgalo en el listón.</p>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ─── Bajo el agua: el único momento a sangre ─── -->
+  <section class="tramo tramo--agua" id="agua" data-planta="monstera" aria-labelledby="t-agua">
+    <figure class="agua">
+      <img src="media/raices-agua.jpg" width="1200" height="800" loading="lazy" decoding="async"
+           alt="Raíces blancas y finas de un esqueje de poto, sumergidas en agua clara.">
+      <figcaption>Imagen ilustrativa</figcaption>
+    </figure>
+    <div class="nudo nudo--agua" data-lado="der" data-tallo="7" style="--desde:7;--hasta:12">
+      <h2 id="t-agua">Las primeras raíces salen en dos a cuatro semanas.</h2>
+    </div>
+  </section>
+
+  <section class="tramo tramo--cambio" id="rutina" data-planta="tradescantia" aria-labelledby="t-rutina">
+    <div class="nudo nudo--titulo nudo--medio" data-lado="izq" data-tallo="10" style="--desde:3;--hasta:10">
+      <h2 id="t-rutina">Y después, solo esto</h2>
+    </div>
+    <dl class="rutina">
+      <div class="nudo" data-lado="izq" data-tallo="10" style="--desde:5;--hasta:10">
+        <dt>Cada semana</dt>
+        <dd>Comprueba el agua y rellena si ha bajado, sin pasar nunca de 50&nbsp;ml.</dd>
+      </div>
+      <div class="nudo" data-lado="izq" data-tallo="10" style="--desde:5;--hasta:10">
+        <dt>Cada 2 o 3 semanas</dt>
+        <dd>Renueva el agua: descuelga el cuadro y vacíalo sobre el fregadero. Vuelve a llenarlo con 50&nbsp;ml como máximo y cuélgalo de nuevo.</dd>
+      </div>
+      <div class="nudo" data-lado="izq" data-tallo="10" style="--desde:5;--hasta:10">
+        <dt>Cada 2 o 3 meses</dt>
+        <dd>Saca el esqueje, recorta las raíces a unos 5&nbsp;cm y vuelve a colocarlo. Al poto no le afecta y mantiene el agua limpia.</dd>
+      </div>
+      <div class="nudo" data-lado="izq" data-tallo="10" style="--desde:5;--hasta:10">
+        <dt>Una vez al mes <span class="opcional">opcional</span></dt>
+        <dd>Unas gotas de abono líquido para cultivo en agua, a la mitad de la dosis del envase.</dd>
+      </div>
+    </dl>
+    <aside class="nudo aviso" data-lado="izq" data-tallo="10" style="--desde:6;--hasta:10" aria-label="Aviso de seguridad">
+      <svg class="aviso__icono" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 22 20H2Z"/><path d="M12 10v4M12 17v.5"/></svg>
+      <p><strong>El poto es tóxico si se come.</strong> Cuelga el cuadro fuera del alcance de mascotas y niños pequeños. Al descolgarlo con agua, mantenlo derecho hasta llegar al fregadero.</p>
+    </aside>
+  </section>
+
+  <!-- ─── Plantas ─── -->
+  <section class="tramo tramo--cambio tramo--plantas" id="plantas" data-planta="poto" aria-labelledby="t-plantas">
+    <div class="nudo nudo--titulo" data-lado="der" data-tallo="7" style="--desde:7;--hasta:13">
+      <h2 id="t-plantas">Plantas que funcionan</h2>
+      <p class="entrada">El cuadro llega con un esqueje de poto, pero puedes probar cualquier trepadora o colgante que enraíce bien en agua.</p>
+    </div>
+    <ul class="plantas">
+      <li class="nudo planta" data-planta="poto" data-lado="izq" data-tallo="7" style="--desde:3;--hasta:7">
+        <img class="especimen" src="media/plantas/poto.webp" width="460" height="615" loading="lazy" decoding="async" alt="Esqueje de poto con hojas verdes jaspeadas de amarillo y raíces en la base.">
+        <h3>Poto <i lang="la">Epipremnum aureum</i></h3>
+        <p>La más resistente. Aguanta poca luz. Es la que viene con el cuadro.</p>
+      </li>
+      <li class="nudo planta" data-planta="filodendro" data-lado="der" data-tallo="7" style="--desde:7;--hasta:11">
+        <img class="especimen" src="media/plantas/filodendro.webp" width="460" height="711" loading="lazy" decoding="async" alt="Esqueje de filodendro trepador con hojas verdes en forma de corazón.">
+        <h3>Filodendro trepador <i lang="la">Philodendron hederaceum</i></h3>
+        <p>Hojas en forma de corazón. Crece rápido.</p>
+      </li>
+      <li class="nudo planta" data-planta="singonio" data-lado="izq" data-tallo="7" style="--desde:3;--hasta:7">
+        <img class="especimen" src="media/plantas/singonio.webp" width="460" height="624" loading="lazy" decoding="async" alt="Dos esquejes de singonio con hojas en punta de flecha, verdes y rosadas.">
+        <h3>Singonio <i lang="la">Syngonium podophyllum</i></h3>
+        <p>Hojas en punta de flecha, verdes o rosadas.</p>
+      </li>
+      <li class="nudo planta" data-planta="monstera" data-lado="der" data-tallo="7" style="--desde:7;--hasta:11">
+        <img class="especimen" src="media/plantas/monstera.webp" width="460" height="719" loading="lazy" decoding="async" alt="Esqueje de monstera adansonii con hojas llenas de agujeros.">
+        <h3>Monstera adansonii <i lang="la">Monstera adansonii</i></h3>
+        <p>Hojas con agujeros. Necesita más luz.</p>
+      </li>
+      <li class="nudo planta" data-planta="tradescantia" data-lado="izq" data-tallo="7" style="--desde:3;--hasta:7">
+        <img class="especimen" src="media/plantas/tradescantia.webp" width="460" height="594" loading="lazy" decoding="async" alt="Tres tallos de tradescantia con hojas rayadas en plata y morado.">
+        <h3>Tradescantia <i lang="la">Tradescantia spp.</i></h3>
+        <p>Hojas rayadas o moradas. Enraíza en pocos días.</p>
+      </li>
+      <li class="nudo planta" data-planta="scindapsus" data-lado="der" data-tallo="7" style="--desde:7;--hasta:11">
+        <img class="especimen" src="media/plantas/scindapsus.webp" width="460" height="774" loading="lazy" decoding="async" alt="Esqueje de scindapsus con hojas verde oscuro y manchas plateadas.">
+        <h3>Scindapsus <i lang="la">Scindapsus pictus</i></h3>
+        <p>Manchas plateadas. Crece despacio.</p>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ─── Preguntas ─── -->
+  <section class="tramo tramo--cambio" id="preguntas" data-planta="singonio" aria-labelledby="t-preguntas">
+    <div class="nudo nudo--titulo" data-lado="der" data-tallo="3" style="--desde:3;--hasta:11">
+      <h2 id="t-preguntas">Lo que nos preguntáis</h2>
+      <p class="entrada">Si no encuentras tu respuesta, escríbenos por Etsy o a <a href="mailto:hola@nudoartesania.com">hola@nudoartesania.com</a>.</p>
+    </div>
+    <div class="nudo preguntas" data-lado="der" data-tallo="3" style="--desde:3;--hasta:13">
+    <div class="pregunta">
+      <h3>¿Cada cuánto hay que rellenar el agua?</h3>
+      <p>Depende del tamaño de la planta, la luz y la calefacción. Mientras no tiene raíces apenas bebe; después, con revisarlo una vez por semana y rellenar si ha bajado es suficiente.</p>
+    </div>
+    <div class="pregunta">
+      <h3>¿Y si me voy de vacaciones?</h3>
+      <p>Lleno con 50&nbsp;ml, el depósito suele aguantar dos o tres semanas. Para viajes más largos, aparta el cuadro del sol y de la calefacción para que beba menos.</p>
+    </div>
+    <div class="pregunta">
+      <h3>¿Puede gotear?</h3>
+      <p>No, siempre que respetes la cantidad máxima de agua: 50&nbsp;ml. Si alguna vez gotea, descuelga el cuadro y quítale un poco de agua.</p>
+    </div>
+    <div class="pregunta">
+      <h3>¿Cómo se cuelga?</h3>
+      <p>Con el listón incluido, dos tornillos y dos tacos. Queda oculto detrás del cuadro y lo sujeta pegado a la pared, sin que se mueva.</p>
+    </div>
+    <div class="pregunta">
+      <h3>¿Puedo cambiar de planta?</h3>
+      <p>Sí, cuando quieras. Puedes poner cualquiera de las <a href="#plantas">plantas recomendadas</a>, o la que tú prefieras que enraíce en agua.</p>
+    </div>
+    <div class="pregunta">
+      <h3>¿Cómo cuido la madera?</h3>
+      <p>Solo con un paño seco. No la mojes ni uses productos de limpieza: cada pieza tiene un acabado quemado y barnizado único.</p>
+    </div>
+    <div class="pregunta">
+      <h3>¿Hacéis envíos?</h3>
+      <p>Sí, a toda la península desde Madrid, a través de nuestra tienda de Etsy. Los cuadros viajan vacíos y con el esqueje protegido.</p>
+    </div>
+    </div>
+  </section>
+
+  <!-- ─── Sobre Nudo: la punta del tallo ─── -->
+  <section class="tramo tramo--cambio tramo--final" id="sobre" data-planta="scindapsus" aria-labelledby="t-sobre">
+    <figure class="medio medio--nudo" style="--desde:2;--hasta:5;--fila:1">
+      <img src="media/nudo-y-nudo.jpg" width="880" height="1100" loading="lazy" decoding="async"
+           alt="El nudo de una tabla de madera oscura y, sobre ella, el nudo de un tallo de poto con su raíz aérea.">
+      <figcaption>El nudo de la madera y el nudo del tallo · imagen ilustrativa</figcaption>
+    </figure>
+    <div class="nudo nudo--punta" data-lado="der" data-tallo="6" style="--desde:6;--hasta:12">
+      <h2 id="t-sobre" class="vh">Sobre Nudo</h2>
+      <blockquote>
+        <p>Soy Gonzalo y hago cada pieza a mano en Madrid. Siempre me ha fascinado ver crecer algo vivo en un rincón inesperado, y de ahí nació Nudo: cuadros en los que una planta real brota de la madera y cambia contigo, semana a semana. Cada cuadro es único, porque la madera nunca se repite y la planta crece a su manera.</p>
+        <footer>Gonzalo, Madrid</footer>
+      </blockquote>
+      <p class="gracias" data-tallo-hasta>Gracias por dejar que algo crezca en tu casa.</p>
+      <a class="boton" href="https://www.etsy.com/shop/NudoArtesania" rel="noopener">Ver los cuadros en Etsy
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13 13 3M6 3h7v7"/></svg></a>
+    </div>
+  </section>
+</main>
+
+<footer class="pie" id="pie">
+  <div class="pie__datos">
+    <p class="pie__lema">Cuadros que echan <em>raíces</em>.</p>
+    <ul class="pie__enlaces">
+      <li><a href="https://www.etsy.com/shop/NudoArtesania" rel="noopener">NudoArtesania en Etsy</a></li>
+      <li><a href="https://www.instagram.com/nudoartesania" rel="noopener">Instagram</a></li>
+      <li><a href="mailto:hola@nudoartesania.com">hola@nudoartesania.com</a></li>
+    </ul>
+    <div class="pie__taller">
+      <p>Hecho a mano en Madrid, en pino quemado y barnizado.</p>
+      <details class="legal">
+        <summary>Aviso legal y privacidad</summary>
+        <p>Titular de este sitio: <mark>[Nombre y apellidos]</mark>, NIF <mark>[NIF]</mark>, <mark>[ciudad]</mark>, España. Contacto: hola@nudoartesania.com.</p>
+        <p>Este sitio es solo informativo: no vende directamente, no recoge datos personales y no usa cookies ni herramientas de seguimiento. Las compras se realizan en Etsy, conforme a sus condiciones y política de privacidad.</p>
+      </details>
+    </div>
+  </div>
+
+  <!-- la marca, quemada a fuego en la tabla mientras bajas; al acabar, brota algo de la «o» -->
+  <div class="quemado" aria-hidden="true">
+    <span class="quemado__huella">nud<span class="quemado__o">o</span></span>
+    <span class="quemado__carbon">nudo</span>
+    <span class="quemado__brasa"><span>nudo</span></span>
+    <span class="quemado__hoyo"></span>
+    <img class="quemado__brote" src="media/plantas/brote.webp" alt="" width="625" height="372" decoding="async">
+  </div>
+
+  <p class="pie__copy">© 2026 Nudo. Textos, imágenes y diseño protegidos; no se permite su reproducción sin autorización.</p>
+</footer>
+
+</body>
+</html>

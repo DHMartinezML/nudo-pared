@@ -1,0 +1,555 @@
+/* ─────────────────────────────────────────────────────────────
+   Nudo · propuesta «La pared»
+   La página entera es la pared que queda bajo el cuadro.
+   No hay bandas: un solo muro de cal, y un tallo que cae.
+   ───────────────────────────────────────────────────────────── */
+
+/* Las fuentes van en la carpeta (subconjunto latino, de Google Fonts). Desde el disco llegan
+   antes de los 100 ms de «fallback»: el texto se pinta ya con Alegreya y nada salta. */
+@font-face { font-family: 'Alegreya'; src: url(fonts/alegreya.woff2) format('woff2'); font-style: normal; font-weight: 400 800; font-display: fallback; }
+@font-face { font-family: 'Alegreya'; src: url(fonts/alegreya-italic.woff2) format('woff2'); font-style: italic; font-weight: 400 600; font-display: fallback; }
+@font-face { font-family: 'Alegreya Sans'; src: url(fonts/alegreya-sans-400.woff2) format('woff2'); font-style: normal; font-weight: 400; font-display: fallback; }
+@font-face { font-family: 'Alegreya Sans'; src: url(fonts/alegreya-sans-400-italic.woff2) format('woff2'); font-style: italic; font-weight: 400; font-display: fallback; }
+@font-face { font-family: 'Alegreya Sans'; src: url(fonts/alegreya-sans-500.woff2) format('woff2'); font-style: normal; font-weight: 500; font-display: fallback; }
+@font-face { font-family: 'Alegreya Sans'; src: url(fonts/alegreya-sans-700.woff2) format('woff2'); font-style: normal; font-weight: 700; font-display: fallback; }
+
+:root {
+  /* la pared (cal, gris verdoso: no crema) */
+  --cal: oklch(0.948 0.007 120);
+  --cal-sombra: oklch(0.91 0.009 120);
+  --linea: oklch(0.84 0.01 120);
+
+  /* la madera quemada */
+  --madera: oklch(0.22 0.022 52);
+  --madera-luz: oklch(0.32 0.03 55);
+  --sobre-madera: oklch(0.93 0.012 85);
+  --sobre-madera-suave: oklch(0.78 0.02 75);
+
+  /* tinta = carbón de la propia madera */
+  --tinta: oklch(0.24 0.018 55);
+  --tinta-suave: oklch(0.43 0.018 65);
+
+  /* la planta */
+  --hoja: oklch(0.55 0.13 142);
+  --hoja-honda: oklch(0.42 0.1 148);
+  --tallo: oklch(0.56 0.1 132);
+  --oro: oklch(0.86 0.1 100);
+
+  --serif: "Alegreya", "Iowan Old Style", Georgia, serif;
+  --sans: "Alegreya Sans", "Gill Sans", "Segoe UI", sans-serif;
+
+  /* escala fluida (1.25 → 1.333) */
+  --t-0: clamp(1.06rem, 1rem + 0.25vw, 1.2rem);
+  --t-1: clamp(1.3rem, 1.15rem + 0.6vw, 1.6rem);
+  --t-2: clamp(1.7rem, 1.3rem + 1.6vw, 2.6rem);
+  --t-3: clamp(2.3rem, 1.5rem + 3.2vw, 4.2rem);
+  --t-4: clamp(3.2rem, 1.6rem + 6.4vw, 6rem);
+
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --cols: 12;
+  --gap: clamp(1rem, 2vw, 2rem);
+  --margen: clamp(1.25rem, 5vw, 5rem);
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
+  scrollbar-color: var(--tallo) var(--cal-sombra);
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  position: relative;
+  background: var(--cal);
+  color: var(--tinta);
+  font: 400 var(--t-0)/1.55 var(--sans);
+  font-kerning: normal;
+  text-rendering: optimizeLegibility;
+  caret-color: var(--hoja);
+  overflow-x: clip;
+}
+/* textura de cal: grano muy leve, fijo, sin imagen */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .35 0 0 0 0 .37 0 0 0 0 .3 0 0 0 .09 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+::selection { background: oklch(0.82 0.11 135); color: var(--tinta); }
+
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+a:hover { text-decoration-color: var(--hoja); }
+:focus-visible { outline: 2px solid var(--hoja-honda); outline-offset: 4px; border-radius: 2px; }
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 500; margin: 0; text-wrap: balance; }
+p { margin: 0; text-wrap: pretty; }
+
+.vh {
+  position: absolute !important; width: 1px; height: 1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+.saltar {
+  position: fixed; left: 1rem; top: -4rem; z-index: 20;
+  background: var(--madera); color: var(--sobre-madera); padding: 0.6rem 1rem;
+}
+.saltar:focus { top: 1rem; }
+
+/* ── cabecera ───────────────────────────────────────────── */
+.cabecera {
+  position: fixed; inset: 0 0 auto; z-index: 10;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem var(--margen);
+  background: color-mix(in oklch, var(--cal) 90%, transparent);
+  transition: translate 0.5s var(--ease);
+}
+.cabecera.oculta { translate: 0 -100%; }
+.marca {
+  font-family: var(--serif); font-weight: 700; font-size: 1.75rem;
+  letter-spacing: -0.01em; line-height: 1; text-decoration: none; margin: 0;
+}
+.cabecera ul { display: flex; gap: clamp(1rem, 2.5vw, 2.25rem); list-style: none; margin: 0; padding: 0; }
+.cabecera nav a { text-decoration: none; font-weight: 500; }
+.cabecera nav a:hover { color: var(--hoja-honda); }
+.nav-tienda {
+  border-bottom: 1px solid currentColor; padding-bottom: 0.1em;
+}
+@media (max-width: 640px) {
+  .cabecera li:not(:last-child) { display: none; }
+}
+
+/* ── el tallo (SVG superpuesto, lo dibuja tallo.js) ─────── */
+.tallo {
+  position: absolute; top: 0; left: 0; z-index: 3;
+  pointer-events: none; overflow: visible;
+}
+.tallo__ramas path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.tallo__sombra { stroke: oklch(0.32 0.03 80); stroke-opacity: 0.12; }
+/* el tallo va en trozos de grosor decreciente: extremos rectos para que empalmen sin bultos.
+   El color y el grosor de cada trozo los pone tallo.js según la planta. */
+.tallo__ramas .tallo__trozo, .tallo__ramas .tallo__punta { stroke: var(--tallo); stroke-linecap: butt; }
+.tallo__ramas .tallo__punta--final { stroke-linecap: round; }
+.tallo__brillo { stroke: oklch(0.95 0.03 100); stroke-opacity: 0.4; }
+
+/* el nudo: engrosamiento y raíz aérea, que asoman cuando la punta pasa */
+.tallo__nudo { fill: oklch(0.5 0.09 132); opacity: 0; transition: opacity 0.25s; }
+.tallo__nudo.abierta { opacity: 1; transition: opacity 0.8s 0.15s; }
+/* donde cambia la planta, un injerto: el nudo es de corteza */
+.tallo__nudo--injerto ellipse { fill: oklch(0.46 0.05 65); stroke: oklch(0.36 0.04 60); stroke-width: 0.8; }
+.tallo__ramas .tallo__raiz { stroke: oklch(0.5 0.05 60); }
+.tallo__raiz-punta { fill: oklch(0.86 0.04 85); }
+
+/* la hoja nace: enrollada y pegada al tallo, gira hacia fuera, se desenrolla
+   y pasa del verde tierno al suyo. Al recogerse, todo al revés y más deprisa. */
+.tallo .hoja__giro, .tallo .hoja__mecer, .tallo .hoja__limbo { transform-origin: 0 0; }
+.tallo .hoja__giro {
+  scale: 0.04; rotate: var(--curl); opacity: 0;
+  transition: scale 0.45s ease-in, rotate 0.45s ease-in, opacity 0.3s 0.15s;
+}
+.tallo .hoja.abierta .hoja__giro {
+  scale: 1; rotate: 0deg; opacity: 1;
+  transition: scale 1.3s cubic-bezier(0.22, 1, 0.36, 1), rotate 1.6s cubic-bezier(0.25, 1, 0.4, 1), opacity 0.4s;
+}
+.tallo .hoja__limbo { scale: 1 0.12; transition: scale 0.35s ease-in; }
+.tallo .hoja.abierta .hoja__limbo { scale: 1 1; transition: scale 1.1s 0.25s cubic-bezier(0.22, 1, 0.36, 1); }
+.tallo .hoja__tierna { opacity: 0.7; transition: opacity 0.3s; }
+.tallo .hoja.abierta .hoja__tierna { opacity: 0; transition: opacity 2.6s 0.7s ease-out; }
+
+/* las hojas a la vista se mecen, cada una a su ritmo */
+@keyframes mecer { from { rotate: calc(var(--m) * -1); } to { rotate: var(--m); } }
+.tallo .hoja.abierta.cerca .hoja__mecer { animation: mecer var(--t) var(--d) ease-in-out infinite alternate; }
+
+.tallo .brote { transition: opacity 0.3s; }
+.tallo--sin-transicion * { transition: none !important; }
+
+/* ── rejilla común ──────────────────────────────────────── */
+.portada, .tramo {
+  position: relative; z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  column-gap: var(--gap);
+  padding-inline: var(--margen);
+  max-width: 96rem; margin-inline: auto;
+}
+.portada > *, .tramo > *, .tramo [style*="--desde"] { grid-column: var(--desde, 1) / var(--hasta, -1); }
+.tramo [style*="--fila"] { grid-row: var(--fila); }
+
+/* ── portada ────────────────────────────────────────────── */
+.portada {
+  position: relative; isolation: isolate;
+  min-height: 100svh;
+  padding-top: clamp(6rem, 13vh, 9rem);
+  padding-bottom: clamp(3rem, 8vh, 6rem);
+  align-items: end;
+}
+/* la pared de la portada: sombras de hojas de una ventana que no se ve */
+.portada > .portada__sombra {
+  position: absolute; z-index: -1; inset: 0 auto auto 50%; translate: -50% 0;
+  width: 100vw; height: 100%; object-fit: cover; object-position: 100% 30%;
+  mix-blend-mode: multiply; opacity: 0.5; pointer-events: none;
+  mask-image: linear-gradient(to bottom, #000 40%, transparent 98%);
+}
+.portada__texto { grid-column: 1 / 8; grid-row: 1; padding-bottom: 2vh; }
+h1 {
+  font-size: var(--t-4); line-height: 0.95; letter-spacing: -0.025em; font-weight: 500;
+}
+h1 em { font-style: italic; font-weight: 400; color: var(--hoja-honda); }
+.bajada {
+  font-family: var(--serif); font-size: var(--t-1); line-height: 1.35;
+  color: var(--tinta-suave); max-width: 30ch; margin-top: 1.5rem;
+}
+.acciones { display: flex; flex-wrap: wrap; align-items: center; gap: 1.25rem 2rem; margin-top: 2.25rem; }
+
+.boton {
+  display: inline-flex; align-items: center; gap: 0.75rem;
+  background: var(--madera); color: var(--sobre-madera);
+  padding: 0.95rem 1.4rem; border-radius: 2px;
+  font-weight: 500; text-decoration: none;
+  box-shadow: 0 1px 0 oklch(0.4 0.03 55) inset, 0 10px 24px -14px oklch(0.2 0.03 50 / 0.7);
+  transition: background-color 0.25s var(--ease), translate 0.25s var(--ease);
+}
+.boton svg { width: 0.9em; height: 0.9em; fill: none; stroke: currentColor; stroke-width: 1.6; transition: translate 0.25s var(--ease); }
+.boton:hover { background: var(--madera-luz); }
+.boton:hover svg { translate: 2px -2px; }
+.boton:active { translate: 0 1px; }
+
+.enlace { text-decoration: none; color: var(--tinta-suave); }
+.enlace span { color: var(--tinta); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.22em; }
+.enlace:hover span { text-decoration-color: var(--hoja); }
+
+.pieza {
+  grid-column: 8 / 12; grid-row: 1; align-self: start;
+  margin: 0; position: relative;
+}
+.pieza__madera {
+  display: block; width: 100%; height: auto; aspect-ratio: 3 / 4;
+  filter: drop-shadow(0 26px 30px oklch(0.25 0.03 60 / 0.28)) drop-shadow(0 4px 6px oklch(0.25 0.03 60 / 0.2));
+}
+.pieza figcaption {
+  /* a la izquierda del agujero (x = 204/300 del cuadro): el tallo cae a plomo por su lado */
+  margin-top: 1.1rem; font-size: 0.92rem; color: var(--tinta-suave); max-width: min(24ch, calc(68% - 1.25rem));
+}
+.pieza figcaption span { display: block; font-style: italic; opacity: 0.85; }
+
+@media (max-width: 860px) {
+  .portada { min-height: auto; align-items: start; }
+  .portada__texto { grid-column: 1 / -1; grid-row: 1; }
+  .pieza { grid-column: 3 / -1; grid-row: 2; margin-top: 3rem; max-width: 22rem; justify-self: end; width: 100%; }
+}
+
+/* ── los tramos y sus nudos ─────────────────────────────── */
+.tramo { padding-top: clamp(4rem, 10vh, 7rem); }
+.tramo--cambio { padding-top: clamp(9rem, 22vh, 15rem); }
+.pasos, .rutina, .plantas { display: contents; list-style: none; margin: 0; padding: 0; }
+
+.nudo { position: relative; margin-top: clamp(2.25rem, 5vh, 3.5rem); }
+.tramo > .nudo:first-child { margin-top: 0; }
+.nudo[data-lado="izq"] { justify-self: end; padding-right: clamp(1rem, 2.2vw, 2rem); }
+/* mismo ancho en todos: pegados al tallo y con el borde izquierdo alineado */
+.nudo[data-lado="izq"]:not(.nudo--titulo, .aviso, .planta) { width: min(100%, 27rem); }
+.nudo[data-lado="der"] { padding-left: clamp(1rem, 2.2vw, 2rem); }
+.nudo p, .nudo dd { max-width: 40ch; }
+.nudo h3, .nudo dt {
+  font-family: var(--serif); font-size: var(--t-1); line-height: 1.2; font-weight: 600;
+  margin-bottom: 0.45rem;
+}
+.nudo dd { margin: 0; color: var(--tinta-suave); }
+.nudo > p, .nudo li > p { color: var(--tinta-suave); }
+
+.nudo--titulo h2 { font-size: var(--t-3); line-height: 1; letter-spacing: -0.02em; }
+.nudo--medio h2 { font-size: var(--t-2); }
+.entrada { font-family: var(--serif); font-size: var(--t-1); line-height: 1.4; color: var(--tinta-suave); margin-top: 1.25rem; max-width: 34ch; }
+
+/* pasos: es una secuencia real, por eso lleva número */
+.num {
+  display: inline-block; min-width: 1.6em;
+  font-variant-numeric: oldstyle-nums; font-weight: 400; font-style: italic;
+  color: var(--hoja-honda);
+}
+.pasos .nudo p { padding-left: 1.6em; }
+.nudo strong { color: var(--tinta); font-weight: 700; }
+.opcional { font-family: var(--sans); font-size: 0.9rem; font-style: italic; font-weight: 400; color: var(--tinta-suave); margin-left: 0.35em; }
+
+.aviso {
+  display: grid; grid-template-columns: auto 1fr; gap: 0.9rem; align-items: start;
+  font-size: 0.98rem; color: var(--tinta-suave);
+}
+.aviso p { max-width: 30ch; }
+.aviso__icono { width: 1.3rem; height: 1.3rem; fill: none; stroke: oklch(0.55 0.14 55); stroke-width: 1.6; stroke-linejoin: round; stroke-linecap: round; margin-top: 0.2rem; }
+
+/* plantas: el esqueje de cada especie, a un lado y otro del tallo, al tresbolillo */
+.plantas > :nth-child(1) { grid-row: 2 / 4; }
+.plantas > :nth-child(2) { grid-row: 3 / 5; }
+.plantas > :nth-child(3) { grid-row: 4 / 6; }
+.plantas > :nth-child(4) { grid-row: 5 / 7; }
+.plantas > :nth-child(5) { grid-row: 6 / 8; }
+.plantas > :nth-child(6) { grid-row: 7 / 9; }
+.plantas > .nudo { margin-top: 0; padding-top: 2.5rem; }
+.planta { display: grid; gap: 0.2rem; max-width: 19rem; }
+.especimen {
+  display: block; width: clamp(9rem, 15vw, 13.5rem); height: auto; margin-bottom: 1rem;
+  filter: drop-shadow(0 10px 10px oklch(0.3 0.03 90 / 0.18));
+}
+.planta[data-lado="izq"] .especimen { justify-self: end; }
+.planta h3 { display: grid; }
+.planta h3 i { font-family: var(--serif); font-weight: 400; font-size: 1rem; color: var(--tinta-suave); margin-top: 0.15rem; }
+
+.preguntas { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr)); gap: 2rem clamp(2rem, 4vw, 4rem); }
+.pregunta h3 { font-weight: 500; font-style: italic; }
+
+/* imágenes y vídeos que acompañan a un nudo */
+.medio { margin: clamp(2.25rem, 5vh, 3.5rem) 0 0; align-self: start; }
+.medio video, .medio img {
+  display: block; width: 100%; height: auto; object-fit: cover; border-radius: 2px;
+  box-shadow: 0 18px 30px -18px oklch(0.25 0.03 60 / 0.45);
+}
+.medio video { aspect-ratio: 720 / 896; }
+.medio img { aspect-ratio: 3 / 2; }
+.medio--nudo { margin-top: 0; }
+.medio--nudo img { aspect-ratio: 4 / 5; }
+.medio figcaption { margin-top: 0.6rem; font-size: 0.85rem; font-style: italic; color: var(--tinta-suave); }
+
+/* foto pendiente: hueco con el encuadre ya decidido */
+.foto-pendiente { margin: clamp(2.25rem, 5vh, 3.5rem) 0 0; align-self: start; }
+.foto-pendiente__marco {
+  aspect-ratio: 4 / 5; display: grid; align-content: end; gap: 0.3rem;
+  padding: 1rem; font-size: 0.9rem; color: var(--tinta-suave);
+  background: var(--cal-sombra);
+  border: 1px dashed oklch(0.74 0.012 120);
+}
+.foto-pendiente__marco span { font-family: var(--serif); font-style: italic; color: var(--tinta); font-size: 1.05rem; }
+
+/* el final: la punta del tallo, la hoja más nueva */
+.tramo--final { padding-bottom: clamp(7rem, 18vh, 12rem); }
+.nudo--punta blockquote { margin: 0; }
+.nudo--punta blockquote p {
+  font-family: var(--serif); font-size: var(--t-1); line-height: 1.5; color: var(--tinta); max-width: 38ch;
+}
+.nudo--punta blockquote footer { margin-top: 1rem; font-style: italic; color: var(--tinta-suave); }
+.nudo--punta blockquote footer::before { content: "— "; }
+.nudo .gracias {
+  color: var(--tinta);
+  font-family: var(--serif); font-size: var(--t-3); line-height: 1.02; letter-spacing: -0.02em;
+  margin: clamp(3rem, 8vh, 5rem) 0 2.25rem; max-width: 14ch;
+}
+
+/* ── pie: la tabla de madera que queda detrás de la pared ──
+   La pared (main) se levanta como un telón y deja ver la tabla, pegada abajo.
+   Mientras se descubre, la marca se quema a fuego de izquierda a derecha (pie.js
+   pone --q de 0 a 1); al terminar, brota un esqueje de la «o». */
+main { position: relative; z-index: 1; background: var(--cal); }
+body::before { z-index: 2; } /* el grano de cal, por encima de la pared, que ahora tiene fondo */
+
+.pie {
+  position: relative; z-index: 0;
+  background:
+    radial-gradient(60% 45% at var(--x-pie, 50%) 80%, oklch(0.55 0.16 45 / calc(var(--ardor, 0) * 0.2)), transparent 70%),
+    linear-gradient(oklch(0.19 0.022 52 / 0.8), oklch(0.15 0.02 50 / 0.88)),
+    url("media/madera-quemada.jpg") center / cover,
+    var(--madera);
+  color: var(--sobre-madera-suave);
+  padding: clamp(3.5rem, 9vh, 6rem) var(--margen) 1.5rem;
+  display: grid; grid-template-rows: auto 1fr auto; gap: clamp(2rem, 5vh, 3.5rem);
+  font-size: 0.98rem;
+  overflow: clip; contain: paint;
+}
+@media (min-width: 761px) and (min-height: 600px) {
+  main { box-shadow: 0 1.5rem 3rem -0.5rem oklch(0.15 0.02 50 / 0.5); }
+  .pie { position: sticky; bottom: 0; min-height: 100svh; }
+}
+
+.pie__datos {
+  display: grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 2rem var(--gap); align-items: start;
+}
+.pie__lema {
+  margin: 0; max-width: 13ch;
+  font-family: var(--serif); font-size: var(--t-2); line-height: 1.1; color: var(--sobre-madera);
+}
+.pie__lema em { color: var(--oro); }
+.pie__enlaces { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.5rem; }
+.pie__taller > p { margin: 0 0 0.9rem; max-width: 30ch; }
+.pie a { color: var(--sobre-madera); }
+.pie a:hover { text-decoration-color: var(--oro); }
+.legal { max-width: 60ch; }
+.legal summary { cursor: pointer; color: var(--sobre-madera); }
+.legal p { margin-top: 0.6rem; font-size: 0.9rem; }
+.legal mark { background: oklch(0.86 0.1 100 / 0.25); color: var(--sobre-madera); padding: 0 0.2em; }
+.pie__copy { margin: 0; font-size: 0.82rem; border-top: 1px solid oklch(0.4 0.02 55); padding-top: 1.1rem; }
+.pie :focus-visible { outline-color: var(--oro); }
+
+/* la marca quemada: capas apiladas en la misma celda */
+.quemado {
+  --q: 1; /* sin JS, ya quemada */
+  --x: calc(var(--q) * 118% - 9%); /* el frente del fuego, en % del ancho de la palabra */
+  position: relative; align-self: end; justify-self: center;
+  display: grid;
+  font-family: var(--serif); font-weight: 800;
+  font-size: clamp(7rem, 33vw, 36rem); line-height: 0.78; letter-spacing: -0.045em;
+  user-select: none;
+}
+.quemado > span:not(.quemado__hoyo) { grid-area: 1 / 1; padding: 0 0.04em 0.06em; }
+/* el dibujo a lápiz que sigue el pirograbador */
+.quemado__huella { color: transparent; -webkit-text-stroke: 1px oklch(0.75 0.03 70 / 0.22); }
+/* lo ya quemado: carbón hundido en la madera, con un filo de luz debajo */
+.quemado__carbon {
+  color: oklch(0.1 0.012 45);
+  text-shadow: 0 0.012em 0 oklch(0.42 0.04 60 / 0.55), 0 0 0.02em oklch(0.28 0.06 45);
+  -webkit-mask-image: linear-gradient(100deg, #000 calc(var(--x) - 3%), transparent calc(var(--x) + 1%));
+  mask-image: linear-gradient(100deg, #000 calc(var(--x) - 3%), transparent calc(var(--x) + 1%));
+}
+/* la brasa: una franja incandescente justo en el frente. La máscara va en el texto
+   y el resplandor en la caja de fuera, para que brille alrededor del corte y no en un rectángulo */
+.quemado__brasa {
+  filter: drop-shadow(0 0 0.03em oklch(0.75 0.2 45)) drop-shadow(0 0 0.12em oklch(0.62 0.21 35 / 0.7));
+  opacity: var(--ardor, 0);
+}
+.quemado__brasa > span {
+  display: block; color: oklch(0.78 0.17 60);
+  -webkit-mask-image: linear-gradient(100deg, transparent calc(var(--x) - 10%), rgb(0 0 0 / 0.5) calc(var(--x) - 3%), #000 var(--x), transparent calc(var(--x) + 1.5%));
+  mask-image: linear-gradient(100deg, transparent calc(var(--x) - 10%), rgb(0 0 0 / 0.5) calc(var(--x) - 3%), #000 var(--x), transparent calc(var(--x) + 1.5%));
+}
+.quemado:not(.ardiendo) .quemado__brasa { visibility: hidden; } /* apagada no se pinta */
+.quemado.ardiendo .quemado__brasa > span { animation: chisporroteo 0.9s steps(6) infinite alternate; }
+@keyframes chisporroteo {
+  0% { color: oklch(0.78 0.17 60); }
+  50% { color: oklch(0.84 0.15 75); }
+  100% { color: oklch(0.72 0.19 48); }
+}
+
+/* el agujero de la «o» y el esqueje que sale de él (pie.js mide dónde cae la «o») */
+.quemado__hoyo {
+  position: absolute; left: var(--ox, 88%); top: var(--oy, 60%);
+  width: calc(var(--ow, 0.5em) * 0.22); aspect-ratio: 1; translate: -50% -50%;
+  border-radius: 50%;
+  background: radial-gradient(circle, oklch(0.06 0.01 40) 45%, oklch(0.2 0.03 45 / 0.6) 70%, transparent 72%);
+  opacity: 0; transition: opacity 0.6s ease;
+}
+.quemado__brote {
+  --w: calc(var(--ow, 0.5em) * 1.75);
+  position: absolute; width: var(--w); height: auto; max-width: none;
+  left: calc(var(--ox, 88%) - var(--w) * 0.48);
+  top: calc(var(--oy, 60%) - var(--w) * 0.5952 * 0.785);
+  transform-origin: 48% 78.5%;
+  scale: 0.05; rotate: -8deg; opacity: 0;
+  filter: drop-shadow(0 0.04em 0.05em oklch(0.08 0.01 40 / 0.6));
+  transition: scale 0.35s ease-in, rotate 0.35s ease-in, opacity 0.2s ease-in 0.15s;
+}
+.quemado.brotado .quemado__hoyo { opacity: 1; }
+.quemado.brotado .quemado__brote {
+  scale: 1; rotate: 0deg; opacity: 1;
+  transition: scale 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.25s, rotate 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.25s, opacity 0.4s ease 0.25s;
+}
+@media (prefers-reduced-motion: reduce) {
+  .quemado__brote, .quemado__hoyo { transition: none; }
+  .quemado.ardiendo .quemado__brasa > span { animation: none; }
+}
+
+/* ── bajo el agua: el único tramo a sangre ──────────────── */
+.tramo--agua { padding-top: clamp(7rem, 16vh, 11rem); }
+.agua {
+  grid-column: 1 / -1; grid-row: 1; justify-self: center;
+  width: 100vw; height: min(88svh, 52rem); margin: 0; position: relative;
+}
+.agua img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 60%; }
+.agua::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, transparent 35%, oklch(0.16 0.02 50 / 0.72) 85%);
+}
+.agua figcaption {
+  position: absolute; z-index: 1; right: var(--margen); bottom: 1rem;
+  font-size: 0.8rem; font-style: italic; color: oklch(0.85 0.02 80 / 0.8);
+}
+.nudo--agua { grid-row: 1; align-self: center; z-index: 1; margin: 0; }
+.nudo--agua h2 {
+  font-size: var(--t-3); line-height: 1.02; letter-spacing: -0.02em; max-width: 13ch;
+  color: oklch(0.96 0.015 85);
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .agua { animation: abrirse linear both; animation-timeline: view(); animation-range: entry 0% cover 45%; }
+  }
+}
+@keyframes abrirse { from { clip-path: inset(9% 7% round 6px); } to { clip-path: inset(0 0 round 0); } }
+
+/* ── la barra de scroll es otro tallo (mapa.js) ────────────
+   Crece con el avance; en cada sección, una hojita de su planta que lleva a ella. */
+html.con-mapa { scrollbar-width: none; }
+html.con-mapa::-webkit-scrollbar { display: none; }
+.mapa {
+  position: fixed; z-index: 6; top: 6rem; bottom: 2.5rem; right: 0.85rem; width: 1.75rem;
+  touch-action: none; cursor: grab;
+}
+.mapa.arrastrando { cursor: grabbing; }
+.mapa__tallo { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.mapa__guia { fill: none; stroke: var(--tallo); stroke-opacity: 0.2; stroke-width: 1.5; transition: stroke-opacity 0.3s ease; }
+.mapa:hover .mapa__guia, .mapa.arrastrando .mapa__guia { stroke-opacity: 0.4; }
+.mapa__vivo { fill: none; stroke: var(--tallo); stroke-width: 2.2; stroke-linecap: round; }
+.mapa__punta { fill: oklch(0.8 0.14 120); }
+.mapa__lista { list-style: none; margin: 0; padding: 0; position: absolute; inset: 0; pointer-events: none; }
+.mapa__lista li { position: absolute; left: 50%; top: var(--y); translate: var(--x) 0; }
+.mapa__nudo {
+  position: absolute; left: -0.9rem; top: -0.8rem; width: 1.8rem; height: 1.6rem;
+  display: block; pointer-events: auto; cursor: pointer; border-radius: 50%;
+}
+.mapa__hoja { position: absolute; width: 28px; height: 28px; top: calc(50% - 14px); left: calc(50% - 4px); overflow: visible; }
+.mapa__lista li[data-lado="-1"] .mapa__hoja { left: calc(50% - 24px); }
+.mapa__hoja-giro {
+  transform-origin: 0 0; rotate: calc(var(--lado) * 32deg);
+  scale: 0.22; opacity: 0.45;
+  transition: scale 0.7s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+}
+.mapa__lista li.alcanzada .mapa__hoja-giro { scale: 1; opacity: 1; }
+.mapa__nudo[aria-current] .mapa__hoja-giro, .mapa__nudo:hover .mapa__hoja-giro { scale: 1.3; opacity: 1; }
+.mapa__agujero { fill: oklch(0.16 0.02 50); stroke: oklch(0.5 0.05 60); stroke-width: 1.2; }
+.mapa__nombre {
+  position: absolute; right: calc(100% + 1.5rem); top: 50%; translate: 0.4rem -50%;
+  white-space: nowrap; font: 500 0.82rem/1 var(--sans); color: var(--tinta);
+  background: var(--cal); padding: 0.4rem 0.65rem; border-radius: 99px;
+  box-shadow: 0 2px 10px oklch(0.2 0.02 60 / 0.16);
+  opacity: 0; pointer-events: none; transition: opacity 0.2s ease, translate 0.25s ease;
+}
+.mapa__nudo:hover .mapa__nombre, .mapa__nudo:focus-visible .mapa__nombre { opacity: 1; translate: 0 -50%; }
+@media (max-width: 760px), (pointer: coarse) { .mapa { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .mapa__hoja-giro, .mapa__nombre, .mapa__guia { transition: none; }
+}
+
+/* ── móvil: el tallo baja por el borde izquierdo ────────── */
+@media (max-width: 760px) {
+  .tramo { display: block; padding-left: calc(var(--margen) + 2.6rem); }
+  .nudo[data-lado] { text-align: left; justify-self: start; padding-inline: 0; }
+  .plantas > .nudo { padding-top: 0; margin-top: 2.5rem; }
+  .nudo[data-lado] p, .nudo[data-lado] dd, .nudo[data-lado] .entrada { margin-left: 0; }
+  .planta[data-lado] .especimen { justify-self: start; }
+  .tramo--agua { display: grid; }
+  .agua { height: 70svh; justify-self: start; margin-left: calc(-1 * (var(--margen) + 2.6rem)); }
+  .tramo--agua .nudo--agua { grid-column: 1 / -1; }
+  .agua::after { background: linear-gradient(180deg, transparent 30%, oklch(0.16 0.02 50 / 0.75) 80%); }
+  .nudo--agua { align-self: end; padding: 0 0 3.5rem; }
+  .tramo--cambio { padding-top: 7rem; }
+  .aviso { margin-top: 2.5rem; }
+  .foto-pendiente, .medio { max-width: 18rem; margin-top: 2.5rem; }
+  .medio--ancho { max-width: 26rem; }
+  .portada > .portada__sombra { opacity: 0.38; }
+  .pie__datos { grid-template-columns: 1fr; }
+}
+
+/* sin JS o sin movimiento: nada se esconde */
+@media (prefers-reduced-motion: reduce) {
+  .tallo .hoja__giro, .tallo .hoja__limbo { transition: none; scale: 1; rotate: 0deg; opacity: 1; }
+  .tallo .hoja__tierna { display: none; }
+  .tallo__nudo { transition: none; }
+  .cabecera { transition: none; }
+}
+
+
+/* el cuello que remata la bifurcación de la foto (tallo.js) */
+.tallo__ramas .tallo__cuello-anillo { fill: none; stroke: oklch(0.45 0.08 100); stroke-opacity: 0.45; stroke-linecap: round; }
